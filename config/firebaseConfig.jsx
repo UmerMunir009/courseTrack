@@ -1,28 +1,29 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { initializeAuth,getReactNativePersistance } from "firebase/auth";
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp, getApps, getApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth, initializeAuth, getReactNativePersistence } from "firebase/auth";
+import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBS05wT3ypKptdndmv2baMkQsgkZHHVwT4",
   authDomain: "coursetrackapp.firebaseapp.com",
   projectId: "coursetrackapp",
-  storageBucket: "coursetrackapp.firebasestorage.app",
+  storageBucket: "coursetrackapp.appspot.com",
   messagingSenderId: "446929287332",
   appId: "1:446929287332:web:291f14363af84054aece31",
-  measurementId: "G-7MBJNN15F3"
+  measurementId: "G-7MBJNN15F3",
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-//required storage for authentication (check whether you are authenticated or not)
-const auth=initializeAuth(app,{
-    persistence:getReactNativePersistance(ReactNativeAsyncStorage)
-})
-const analytics = getAnalytics(app);
+// Initialize Auth with AsyncStorage persistence
+const auth = getApps().length
+  ? getAuth()
+  : initializeAuth(app, {
+      persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+    });
+
+// Initialize Firestore
+export const db = getFirestore(app);
+export { auth };

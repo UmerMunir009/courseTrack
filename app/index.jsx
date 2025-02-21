@@ -1,17 +1,34 @@
 import { Text, View, Image, SafeAreaView, StyleSheet, TouchableOpacity,ScrollView } from "react-native";
 import Color from './../constant/Colors'
 import { useRouter } from "expo-router";
+import {onAuthStateChanged} from 'firebase/auth'
+import {auth,db} from './../config/firebaseConfig'
+import { doc, getDoc } from "firebase/firestore";
+import { useContext } from "react";
+import { UserDetailContext } from "./../context/UserDetailContext";
 
 export default function Index() {
   const router=useRouter();
+  const { userDetail, setUserDetail } = useContext(UserDetailContext)
+
+  //if user is already present just fetch data of user and update context of userDetail
+  onAuthStateChanged(auth,async(user)=>{
+    if(user){
+       const result=await getDoc(doc(db,'users',user?.email));
+      //  console.log(result.data()) //here is the issue
+       setUserDetail(result.data())
+       router.replace('/(tabs)/home')
+    }
+  })
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={{flexGrow:1}}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{flexGrow:1}}>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={require('./../assets/images/landing.png')} />
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.mainText}>Welcome to Coaching App and my dream app</Text>
+        <Text style={styles.mainText}>Welcome to Coaching App</Text>
 
         <Text style={styles.subText}>Transform your ideas into engaging educational content, effortlessely with AI</Text>
         <TouchableOpacity 
@@ -29,6 +46,7 @@ export default function Index() {
     </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -46,15 +64,13 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   contentContainer: {
-
     flex: 1,
     paddingTop: 15,
     alignItems: "center",
     backgroundColor: Color.PRIMARY,
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
-    justifyContent: 'center'
-
+    justifyContent: 'center',
   },
   mainText: {
     fontSize: 30,
@@ -104,6 +120,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
 })
-
-
-
