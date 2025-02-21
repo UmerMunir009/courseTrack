@@ -11,7 +11,7 @@ export default function Index() {
         <Image style={styles.image} source={require('./../assets/images/landing.png')} />
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.mainText}>Welcome to Coaching App</Text>
+        <Text style={styles.mainText}>Welcome to Coaching App and my dream app</Text>
 
         <Text style={styles.subText}>Transform your ideas into engaging educational content, effortlessely with AI</Text>
         <TouchableOpacity 
