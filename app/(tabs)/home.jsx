@@ -5,7 +5,7 @@ export default class home extends Component {
   render() {
     return (
       <View>
-        <Text> Home page </Text>
+        <Text> Home page  Chak number 13</Text>
       </View>
     )
   }
