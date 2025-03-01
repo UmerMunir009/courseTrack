@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 
-export default class profile extends Component {
-  render() {
+
+export default function Profile () {
+  
     return (
-      <View>
-        <Text> Profile tab </Text>
+      <View style={{backgroundColor:"white",flex:1}}>
+        
       </View>
     )
   }
-}

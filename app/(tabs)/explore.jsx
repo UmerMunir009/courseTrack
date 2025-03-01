@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 
-export default class explore extends Component {
-  render() {
+
+export default function Explore () {
+  
     return (
-      <View>
-        <Text> Explore tab </Text>
+      <View style={{backgroundColor:"white",flex:1}}>
+        
       </View>
     )
   }
-}

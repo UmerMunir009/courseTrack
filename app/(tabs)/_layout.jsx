@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router'
 import React from 'react'
 import { Text, View } from 'react-native'
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons'
 import Colors from './../../constant/Colors'
 
 
@@ -49,7 +49,7 @@ export default function TabLayout() {
                         </Text>
                     ),
                     headerShown: false,
-                    tabBarIcon: ({ color }) => <Ionicons name="heart" size={26} color={color} />
+                    tabBarIcon: ({ color }) => <Ionicons name="search" size={26} color={color} />
                 }}
             />
             <Tabs.Screen name='progress'
@@ -68,7 +68,7 @@ export default function TabLayout() {
                         </Text>
                     ),
                     headerShown: false,
-                    tabBarIcon: ({ color }) => <Ionicons name="chatbubble-sharp" size={26} color={color} />
+                    tabBarIcon: ({ color }) => <Ionicons name="analytics" size={26} color={color} />
                 }}
             />
             <Tabs.Screen name='profile'

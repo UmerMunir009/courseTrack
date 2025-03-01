@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, db } from './../config/firebaseConfig'
 import { doc, getDoc } from "firebase/firestore";
+import { useEffect } from "react";
 import { useContext } from "react";
 import { UserDetailContext } from "./../context/UserDetailContext";
 
@@ -12,14 +13,17 @@ export default function Index() {
   const { userDetail, setUserDetail } = useContext(UserDetailContext)
 
   //if user is already present just fetch data of user and update context of userDetail
-  onAuthStateChanged(auth, async (user) => {
+ useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, async (user) => {
     if (user) {
-      const result = await getDoc(doc(db, 'users', user?.email));
-      //  console.log(result.data()) //here is the issue
+      const result = await getDoc(doc(db, "users", user?.email))
+      console.log(result.data())
       setUserDetail(result.data())
-      router.replace('/(tabs)/home')
+      router.replace("/(tabs)/home")
     }
   })
+  return () => unsubscribe()
+}, []) 
 
   return (
     <SafeAreaView style={styles.container}>
