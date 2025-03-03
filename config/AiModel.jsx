@@ -20,7 +20,7 @@ const {
   };
   
  
-    export const GenerateTopicsAI = model.startChat({
+    export const GenerateTopicsAIModel = model.startChat({
       generationConfig,
       history: [
         {
@@ -35,6 +35,13 @@ const {
             {text: "```json\n{\n  \"course_titles\": [\n    \"Python Fundamentals: A Beginner's Journey\",\n    \"Data Manipulation with Python's Pandas\",\n    \"Web Development with Python and Flask\",\n    \"Automate Tasks with Python Scripting\",\n    \"Python for Data Visualization: Telling Stories\",\n    \"Object-Oriented Programming in Python\",\n    \"Python for Machine Learning: A Practical Intro\"\n  ]\n}\n```"},
           ],
         },
+      ],
+    });
+
+
+    export const GenerateCourseAIModel = model.startChat({
+      generationConfig,
+      history: [
       ],
     });
   
