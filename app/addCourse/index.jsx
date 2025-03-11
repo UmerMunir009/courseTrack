@@ -67,6 +67,7 @@ export default function NewCourse() {
             const aiResponse = await GenerateCourseAIModel.sendMessage(PROMPT)
             const response = JSON.parse(aiResponse.response.text());
             const courses=response?.courses
+            // console.log(courses)
             //Course is generated now its time to save in database
             courses?.forEach(async (course) => {
                 await setDoc(doc(db, 'Courses', Date.now().toString()), { //setting document id by currect date
@@ -124,9 +125,10 @@ export default function NewCourse() {
             <View style={{ marginVertical: 8, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 3 }}>
                 {courseTopics.map((item, index) => (
                     <TouchableOpacity
-                        onPress={() => checkOnSelect(item)}>
+                        onPress={() => checkOnSelect(item)}
+                        key={index}>
 
-                        <Text key={index} style={{ ...styles.optiontxt, backgroundColor: isInSelectedList(item) ? Colors.PRIMARY : Colors.WHITE, color: isInSelectedList(item) ? Colors.WHITE : Colors.PRIMARY }}>{item}</Text>
+                        <Text  style={{ ...styles.optiontxt, backgroundColor: isInSelectedList(item) ? Colors.PRIMARY : Colors.WHITE, color: isInSelectedList(item) ? Colors.WHITE : Colors.PRIMARY }}>{item}</Text>
 
                     </TouchableOpacity>
                 ))}
